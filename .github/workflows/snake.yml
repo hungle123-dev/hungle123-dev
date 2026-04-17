@@ -24,21 +24,14 @@ jobs:
           github_user_name: ${{ github.repository_owner }}
 
           # list of files to generate.
-          # one file per line. Each output can be customized with options as query string.
-          #
-          #  supported options:
-          #  - palette:     build-in palettes: github, github-dark, github-light
-          #  - color_snake: color of the snake
-          #  - color_dots:  color of the dots separated by comma [empty] [github] [github-dark] [github-light]
-          #  - dark:        dark mode color [empty] [github] [github-dark] [github-light]
           outputs: |
             dist/github-contribution-grid-snake.svg
             dist/github-contribution-grid-snake-dark.svg?palette=github-dark
 
       - name: Push to Output Branch
-        uses: crazy-max/github-action-push-assets@v1
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+          folder: dist
           branch: output
-          base_dir: dist
-          commit_message: "Update Snake Animation"
+          commit-message: "Update Snake Animation"
+          clean: true
